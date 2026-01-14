@@ -8,9 +8,10 @@ if (isset($_POST['submit'])) {
     $nama = $_POST['nama'];
     $tanggal = $_POST['tanggal'];
     $alamat = $_POST['alamat'];
+    $program_studi_id = $_POST['program_studi_id'];
 
     // Validasi sederhana
-    if (empty($nim) || empty($nama) || empty($tanggal) || empty($alamat)) {
+    if (empty($nim) || empty($nama) || empty($tanggal) || empty($alamat) || empty($program_studi_id)){
         $error = "Semua field harus diisi!";
     } else {
         // Cek apakah NIM sudah ada
@@ -21,14 +22,14 @@ if (isset($_POST['submit'])) {
             $error = "NIM <strong>$nim</strong> sudah terdaftar!";
         } else {
             // Simpan ke database
-            $sql = "INSERT INTO mahasiswa (nim, nm_mhs, tgl_lahir, alamat) 
-                    VALUES ('$nim', '$nama', '$tanggal', '$alamat')";
+            $sql = "INSERT INTO mahasiswa (nim, nm_mhs, tgl_lahir, alamat, program_studi_id) 
+                    VALUES ('$nim', '$nama', '$tanggal', '$alamat','$program_studi_id')";
             $query = mysqli_query($db, $sql);
 
             if ($query) {
                 echo "<script>
                     alert('Data mahasiswa berhasil ditambahkan!');
-                    window.location.href = 'index.php';
+                    window.location.href = 'index.php?page=data_mhs';
                 </script>";
                 exit;
             } else {
@@ -75,6 +76,15 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <div class="mb-3">
+                        <select class="form-control" name="program_studi_id" required>
+                            <option value="1">TRPL</option>
+                            <option value="2">TK</option>
+                            <option value="3">MI</option>
+                            <option value="4">ANIMASI</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
                         <label for="tanggal" class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="tanggal" name="tanggal" required>
                     </div>
@@ -89,7 +99,7 @@ if (isset($_POST['submit'])) {
                         <button type="submit" name="submit" class="btn btn-success">
                             Simpan Data
                         </button>
-                        <a href="index.php" class="btn btn-secondary">
+                        <a href="index.php?page=data_mhs" class="btn btn-secondary">
                             Kembali
                         </a>
                     </div>

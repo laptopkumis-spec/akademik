@@ -1,5 +1,5 @@
 <?php
-include 'koneksi.php';
+include '../koneksi.php';
 
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     die("Error: NIM tidak ditemukan");
@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
     if ($query) {
         echo "<script>
             alert('Data berhasil diubah!');
-            window.location.href = 'index.php';
+            window.location.href = '../index.php?page=data_mhs'
         </script>";
         exit;
     } else {
@@ -84,7 +84,7 @@ if (isset($_POST['submit'])) {
             </div>
 
             <button type="submit" name="submit" class="btn btn-success">Simpan Perubahan</button>
-            <a href="index.php" class="btn btn-secondary">Kembali</a>
+            <a href="../index.php?page=data_mhs" class="btn btn-primary">Kembali</a>
         </form>
     </div>
 
